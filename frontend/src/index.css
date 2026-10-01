@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root, *, ::before, ::after {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+  }
+
+  ::selection {
+    background-color: rgba(59, 130, 246, 0.35) !important;
+    color: inherit !important;
+  }
+
+  ::-moz-selection {
+    background-color: rgba(59, 130, 246, 0.35) !important;
+    color: inherit !important;
+  }
+
+  body {
+    font-family: 'Hanken Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f7f9fb;
+    color: #191c1e;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Hanken Grotesk', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+/* Automatic Dark Mode High Contrast Overrides */
+.dark body {
+  background-color: #0B0F17 !important;
+  color: #F1F5F9 !important;
+}
+
+.dark .bg-surface {
+  background-color: #0B0F17 !important;
+}
+
+.dark .bg-surface-container-lowest {
+  background-color: #151C28 !important;
+}
+
+.dark .bg-surface-container-low {
+  background-color: #0E131F !important;
+}
+
+.dark .bg-surface-container {
+  background-color: #151C28 !important;
+}
+
+.dark .bg-surface-container-high {
+  background-color: #1C2536 !important;
+}
+
+.dark .bg-surface-container-highest {
+  background-color: #242F45 !important;
+}
+
+.dark .text-on-surface {
+  color: #F1F5F9 !important;
+}
+
+.dark .text-on-surface-variant {
+  color: #CBD5E1 !important;
+}
+
+.dark .text-secondary {
+  color: #94A3B8 !important;
+}
+
+.dark .text-outline {
+  color: #64748B !important;
+}
+
+.dark .border-surface-container-high,
+.dark .border-surface-container-high\/70,
+.dark .border-surface-container-high\/60,
+.dark .border-surface-container-high\/50,
+.dark .border-surface-container-high\/40 {
+  border-color: #232D3F !important;
+}
+
+.dark .border-surface-container {
+  border-color: #232D3F !important;
+}
+
+.dark .border-surface-variant {
+  border-color: #232D3F !important;
+}
+
+/* Design System Reusable Component Tokens */
+@layer components {
+  /* Visible Focus Ring Token */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ring-offset-white dark:ring-offset-[#0B0F17] transition-all duration-150;
+  }
+
+  /* Buttons with Quantified Press Depth & Hover Lift */
+  .btn-primary {
+    @apply focus-ring px-4 py-2.5 bg-[#1d4ed8] hover:bg-[#1e40af] text-white font-semibold text-xs rounded shadow-sm transition-all duration-150 active:scale-[0.98] active:translate-y-0 hover:-translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply focus-ring px-4 py-2.5 bg-white dark:bg-[#151C28] border border-slate-200 dark:border-[#232D3F] hover:bg-slate-50 dark:hover:bg-[#1C2536] text-slate-700 dark:text-slate-200 font-semibold text-xs rounded transition-all duration-150 active:scale-[0.98] hover:-translate-y-[1px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2;
+  }
+
+  /* Distinct Elevation Scale Classes */
+  .card {
+    @apply bg-white dark:bg-[#151C28] border border-slate-200 dark:border-[#232D3F] rounded-2xl transition-all duration-150;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-sidebar {
+    @apply bg-[#F1F5F9] dark:bg-[#0E131F] border-r border-slate-200 dark:border-[#232D3F];
+  }
+
+  .card-drawer {
+    @apply bg-white dark:bg-[#1C2536] border-l border-slate-200 dark:border-[#232D3F];
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.20), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+  }
+
+  .badge {
+    @apply px-2.5 py-1 text-[10px] font-mono font-bold rounded border transition-colors;
+  }
+}
+
+/* Document Analysis Unified Typography & 4px Spacing Scale Token Classes */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;   /* Subheading-to-Body Gap */
+  --space-3: 12px;  /* Compact Item Gap */
+  --space-4: 16px;  /* Body Paragraph & List Margin Bottom */
+  --space-6: 24px;  /* Sub-section / Subheading Top Margin */
+  --space-8: 32px;  /* Section-to-Section Transition Margin (LARGEST GAP) */
+}
+
+.nexus-content-body {
+  display: flex;
+  flex-direction: column;
+  color: #CBD5E1;
+  font-size: 0.875rem; /* 14px - Uniform Font Size for All Answer Content */
+  line-height: 1.6;
+}
+
+/* LEVEL 1: Structural Section Labels (Answer, Explanation, Source) */
+.nexus-heading-l1 {
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 1rem !important;  /* 16px - Section Header Only */
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.nexus-label-blue {
+  color: #60A5FA !important; /* Blue accent ONLY for Answer and Explanation */
+}
+
+.nexus-label-white {
+  color: #FFFFFF !important;
+}
+
+.nexus-label-muted {
+  color: #94A3B8 !important;
+}
+
+/* LEVEL 2: Inner Categories / Sub-topics (## Category) */
+.nexus-heading-l2 {
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.875rem !important; /* 14px - EXACT SAME FONT SIZE AS BODY */
+  font-weight: 600 !important;   /* Moderate Semibold Weight */
+  color: #FFFFFF !important;      /* Text White */
+  line-height: 1.5 !important;
+  margin-top: 14px !important;
+  margin-bottom: 4px !important;
+}
+
+/* LEVEL 3: Specific Items / Projects (### Item Title) */
+.nexus-heading-l3 {
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.875rem !important;  /* 14px - EXACT SAME FONT SIZE AS BODY */
+  font-weight: 600 !important;
+  color: #F1F5F9 !important;      /* Slate Off-White */
+  line-height: 1.5 !important;
+  margin-top: 10px !important;
+  margin-bottom: 3px !important;
+}
+
+/* Single Unified Class for ALL Main Section Headings (Section 01, Section 02, etc.) */
+.nexus-section-heading {
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 1.25rem !important;  /* 20px */
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.01em !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid #232D3F !important;
+  margin-top: 20px !important;    /* 20px gap before numbered Sections */
+  margin-bottom: 12px !important; /* 12px gap after section header */
+}
+
+/* First section heading on top has no top margin */
+.nexus-section-heading:first-child {
+  margin-top: 0 !important;
+}
+
+/* Single Unified Class for ALL Subheadings across EVERY section of EVERY document */
+.nexus-subheading {
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 1.125rem !important; /* 18px */
+  font-weight: 700 !important;    /* Strict 700 bold weight */
+  color: #FFFFFF !important;      /* Text white */
+  line-height: 1.35 !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 12px !important;    /* Tight 12px gap before sub-heading */
+  margin-bottom: 4px !important;  /* Tight 4px gap after sub-heading before body */
+}
+
+.nexus-subheading:first-child {
+  margin-top: 0 !important;
+}
+
+/* Body paragraph spacing */
+.nexus-body-text {
+  color: #CBD5E1 !important;
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif !important;
+  font-size: 0.9375rem !important; /* 15px */
+  line-height: 1.6 !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;  /* 8px gap after paragraph */
+}
+
+.nexus-body-text:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Prevent Chrome / Edge / Safari Browser Autofill from turning input background white */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #0E131F inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #FFFFFF !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}

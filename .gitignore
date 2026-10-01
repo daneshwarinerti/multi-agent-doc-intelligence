@@ -1,0 +1,36 @@
+# Secrets and environment configuration
+.env
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python bytecode & cache
+__pycache__/
+*.pyc
+*.pyo
+
+# ChromaDB persistence folder
+chroma_db/
+
+# Temporary upload storage
+tmp/
+*.tmp
+
+# Frontend build & dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Persistent JSON data stores
+users.json
+sessions.json
+stored_results.json
+conversations.json
+
+# Scratch files & logs
+scratch/
+scratch_chroma/
+scratch_test/
+*.log
