@@ -133,13 +133,13 @@ export default function SummaryTab({
 
   return (
     <div className="relative pt-14 w-full min-h-screen bg-[#0B0F17] text-slate-100 select-text">
-      <div className="w-full flex justify-center px-4 sm:px-6 py-8">
-        <div className="w-full max-w-3xl flex flex-col gap-6">
+      <div className="w-full flex justify-center px-3 sm:px-6 py-4 sm:py-8">
+        <div className="w-full max-w-3xl flex flex-col gap-6 min-w-0">
 
           {/* Document Header & User-Friendly Status */}
           <header className="flex flex-col gap-2 pb-4 border-b border-[#232D3F]">
             <h1
-              className="font-serif text-2xl sm:text-3xl font-semibold text-white tracking-tight leading-snug max-w-2xl truncate"
+              className="font-serif text-xl sm:text-3xl font-semibold text-white tracking-tight leading-snug break-words sm:truncate"
               title={docName}
             >
               {docName}
@@ -158,7 +158,7 @@ export default function SummaryTab({
           {/* Executive Summary Header & Toggle Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#232D3F]">
             <div>
-              <h2 className="font-serif text-xl sm:text-2xl font-semibold text-white tracking-tight">
+              <h2 className="font-serif text-lg sm:text-2xl font-semibold text-white tracking-tight">
                 Executive Summary
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -194,14 +194,14 @@ export default function SummaryTab({
           </div>
 
           {/* Elevated Dark Summary Card */}
-          <article className="flex flex-col gap-6">
+          <article className="flex flex-col gap-6 w-full min-w-0">
             {loading ? (
               <div className="py-16 flex flex-col items-center justify-center gap-3 text-slate-400">
                 <Loader2 className="w-6 h-6 animate-spin text-primary" />
                 <span className="text-xs font-mono">Loading analysis summary...</span>
               </div>
             ) : (
-              <div className="p-6 sm:p-8 rounded-2xl bg-[#151C28] border border-[#232D3F] shadow-xl text-slate-200 text-sm leading-relaxed max-w-3xl">
+              <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-[#151C28] border border-[#232D3F] shadow-xl text-slate-200 text-sm leading-relaxed w-full max-w-full min-w-0 overflow-hidden">
                 <FormattedMarkdown content={currentSummaryText} />
               </div>
             )}

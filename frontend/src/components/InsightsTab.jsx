@@ -134,8 +134,8 @@ export default function InsightsTab({
 
   return (
     <div className="relative pt-14 w-full min-h-screen bg-surface text-on-surface select-text">
-      <div className="w-full flex justify-center px-4 sm:px-6 py-8">
-        <div className="w-full max-w-3xl flex flex-col gap-8">
+      <div className="w-full flex justify-center px-3 sm:px-6 py-4 sm:py-8">
+        <div className="w-full max-w-3xl flex flex-col gap-6 sm:gap-8 min-w-0">
           {/* Document Context Header */}
           <div className="flex flex-col gap-1 border-b border-surface-container-high/60 pb-4">
             <div className="flex items-center gap-2 text-slate-400 font-mono text-[10px] uppercase tracking-wider">
@@ -145,13 +145,13 @@ export default function InsightsTab({
               <span className="text-slate-300 font-medium">VERIFIED ANALYSIS</span>
             </div>
             <div className="flex items-baseline justify-between pt-1">
-              <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+              <h1 className="font-serif text-xl sm:text-3xl font-semibold text-white tracking-tight">
                 Executive Insights
               </h1>
               <button
                 type="button"
                 onClick={copyNote}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors text-xs font-medium border border-surface-container-high/60 shadow-xs"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors text-xs font-medium border border-surface-container-high/60 shadow-xs"
               >
                 <Copy className="w-3.5 h-3.5 text-primary" />
                 <span>Export Note</span>
@@ -170,12 +170,12 @@ export default function InsightsTab({
           ) : (
             <>
               {/* Quadrant 01: Key Takeaways */}
-              <section className="flex flex-col gap-3">
+              <section className="flex flex-col gap-3 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xs text-slate-400">01 —</span>
                   <h2 className="font-serif text-lg font-semibold text-white">Key Takeaways</h2>
                 </div>
-                <div className="flex flex-col gap-3 bg-[#151C28] p-6 rounded-xl border border-[#232D3F] text-xs">
+                <div className="flex flex-col gap-3 bg-[#151C28] p-4 sm:p-6 rounded-xl border border-[#232D3F] text-xs min-w-0">
                   {keyPoints.map((point, idx) => (
                     <React.Fragment key={idx}>
                       {idx > 0 && <div className="h-px bg-[#232D3F] my-1"></div>}
