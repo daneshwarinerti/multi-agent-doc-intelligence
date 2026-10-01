@@ -39,9 +39,14 @@ app = FastAPI(
 
 # Enable CORS for React frontend (supports localhost and Render deployment)
 allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "")
+origins = []
 if allowed_origins_env.strip():
-    origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
-else:
+    for o in allowed_origins_env.split(","):
+        cleaned = o.strip().rstrip("/")
+        if cleaned:
+            origins.append(cleaned)
+
+if not origins:
     origins = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
