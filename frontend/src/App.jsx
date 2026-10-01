@@ -116,7 +116,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-surface text-on-surface font-sans antialiased flex flex-col select-text">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-surface text-on-surface font-sans antialiased flex flex-col select-text">
       {/* Fixed Collapsible Left Sidebar */}
       <Sidebar
         documents={documents}
@@ -151,7 +151,7 @@ function AppContent() {
       />
 
       {/* Main View Area Offset by Sidebar */}
-      <main className={`flex-1 w-full min-h-[calc(100vh-3.5rem)] transition-all pl-0 ${
+      <main className={`flex-1 w-full max-w-full min-w-0 min-h-[calc(100vh-3.5rem)] transition-all pl-0 ${
         isSidebarCollapsed ? 'md:pl-14' : 'md:pl-64'
       }`}>
         {/* Intentional Empty State when No Document is Selected */}

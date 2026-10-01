@@ -57,7 +57,7 @@ export default function Sidebar({
       {/* Mobile Dark Backdrop Overlay */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 md:hidden transition-opacity"
+          className="fixed inset-0 bg-black/80 backdrop-blur-xs z-[90] md:hidden transition-opacity"
           onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
         ></div>
       )}
@@ -96,7 +96,7 @@ export default function Sidebar({
 
       {/* Full Sidebar (Mobile Overlay & Desktop Sidebar) */}
       <aside
-        className={`fixed left-0 top-0 h-full w-64 bg-[#0E131F] z-[60] flex flex-col justify-between py-4 px-3 border-r border-[#232D3F] shadow-xl select-none transition-all duration-300 ${
+        className={`fixed left-0 top-0 h-full w-[280px] max-w-[85vw] md:w-64 bg-[#0E131F] z-[100] flex flex-col justify-between py-4 px-3 border-r border-[#232D3F] shadow-2xl select-none transition-transform duration-300 ${
           isMobileOpen
             ? 'translate-x-0'
             : isCollapsed
