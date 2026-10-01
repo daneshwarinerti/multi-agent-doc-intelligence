@@ -6,7 +6,21 @@ const AuthContext = createContext(null);
 export function mapTechnicalToFriendlyError(code, rawMsg = '') {
   const msgLower = (rawMsg || '').toLowerCase();
 
-  // If rawMsg is already a clean, human-readable user message, return it directly!
+  // Check network failures & browser fetch errors first (e.g., Safari 'Load failed', Chrome 'Failed to fetch')
+  if (
+    code === 'NETWORK_ERROR' ||
+    msgLower.includes('load failed') ||
+    msgLower.includes('failed to fetch') ||
+    msgLower.includes('networkerror') ||
+    msgLower.includes('network error') ||
+    msgLower.includes('econnrefused') ||
+    msgLower.includes('typeerror') ||
+    msgLower.includes('failed to execute')
+  ) {
+    return 'Unable to connect to the backend server. Please check your connection and try again.';
+  }
+
+  // If rawMsg is already a clean, human-readable user message from FastAPI (e.g., "An account with this email already exists.")
   if (
     rawMsg &&
     !msgLower.includes('json') &&
@@ -16,6 +30,8 @@ export function mapTechnicalToFriendlyError(code, rawMsg = '') {
     !msgLower.includes('exception') &&
     !msgLower.includes('response') &&
     !msgLower.includes('500') &&
+    !msgLower.includes('502') &&
+    !msgLower.includes('504') &&
     !msgLower.includes('unexpected') &&
     !msgLower.includes('internal_error')
   ) {
@@ -39,19 +55,15 @@ export function mapTechnicalToFriendlyError(code, rawMsg = '') {
     return 'Please enter a valid email address.';
   }
 
-  if (code === 'NETWORK_ERROR' || msgLower.includes('failed to fetch') || msgLower.includes('networkerror') || msgLower.includes('econnrefused')) {
-    return "Unable to connect to the backend server. Please check your connection and try again.";
-  }
-
   if (code === 'SERVER_ERROR' || msgLower.includes('500') || msgLower.includes('502') || msgLower.includes('504') || msgLower.includes('internal')) {
-    return 'The backend server is temporarily unavailable or restarting. Please try again in a moment.';
+    return 'Server error. Please try again in a moment.';
   }
 
   if (msgLower.includes('json') || msgLower.includes('unexpected end') || msgLower.includes('syntaxerror')) {
     return 'Unable to reach the backend service. Please ensure the server is running and try again.';
   }
 
-  return 'Unable to sign in right now. Please try again.';
+  return 'Unable to process your request right now. Please try again.';
 }
 
 async function safeFetchAuth(url, options) {
