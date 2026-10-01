@@ -22,6 +22,7 @@ function AppContent() {
   const [documents, setDocuments] = useState([]);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   // Viewer State for PDF/Citation inspection
   const [viewerState, setViewerState] = useState({ isOpen: false, page: 3, text: '' });
@@ -123,12 +124,21 @@ function AppContent() {
         onSelectDoc={(doc) => {
           setCurrentDoc(doc);
           setActiveTab('summary');
+          setIsMobileOpen(false);
         }}
-        onOpenUploadModal={() => setActiveTab('upload')}
+        onOpenUploadModal={() => {
+          setActiveTab('upload');
+          setIsMobileOpen(false);
+        }}
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          setIsMobileOpen(false);
+        }}
         isCollapsed={isSidebarCollapsed}
         setIsCollapsed={setIsSidebarCollapsed}
+        isMobileOpen={isMobileOpen}
+        setIsMobileOpen={setIsMobileOpen}
       />
 
       {/* Top Fixed Header Navbar */}
@@ -137,11 +147,12 @@ function AppContent() {
         setActiveTab={setActiveTab}
         currentDoc={currentDoc}
         isCollapsed={isSidebarCollapsed}
+        onToggleMobileSidebar={() => setIsMobileOpen(!isMobileOpen)}
       />
 
       {/* Main View Area Offset by Sidebar */}
-      <main className={`flex-1 w-full min-h-[calc(100vh-3.5rem)] transition-all ${
-        isSidebarCollapsed ? 'pl-14' : 'pl-64'
+      <main className={`flex-1 w-full min-h-[calc(100vh-3.5rem)] transition-all pl-0 ${
+        isSidebarCollapsed ? 'md:pl-14' : 'md:pl-64'
       }`}>
         {/* Intentional Empty State when No Document is Selected */}
         {(!currentDoc || documents.length === 0) && activeTab !== 'upload' ? (

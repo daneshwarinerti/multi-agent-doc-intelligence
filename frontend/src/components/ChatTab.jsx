@@ -615,8 +615,8 @@ export default function ChatTab({
 
       {/* Floating Composer Bar with Strict Generation Lock */}
       <div
-        className={`fixed bottom-0 right-0 flex flex-col items-center px-4 pb-4 bg-gradient-to-t from-[#0B0F17] via-[#0B0F17]/95 to-transparent pt-6 pointer-events-none z-30 select-text transition-all ${
-          isCollapsed ? 'left-14' : 'left-64'
+        className={`fixed bottom-0 right-0 flex flex-col items-center px-3 sm:px-4 pb-4 bg-gradient-to-t from-[#0B0F17] via-[#0B0F17]/95 to-transparent pt-6 pointer-events-none z-30 select-text transition-all left-0 ${
+          isCollapsed ? 'md:left-14' : 'md:left-64'
         }`}
       >
         <div className="w-full max-w-3xl pointer-events-auto flex flex-col gap-2">

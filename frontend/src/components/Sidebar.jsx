@@ -10,6 +10,7 @@ import {
   PanelLeft,
   LogOut,
   ChevronUp,
+  X,
 } from 'lucide-react';
 
 export default function Sidebar({
@@ -21,6 +22,8 @@ export default function Sidebar({
   setActiveTab,
   isCollapsed = false,
   setIsCollapsed,
+  isMobileOpen = false,
+  setIsMobileOpen,
 }) {
   const { user, logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -41,39 +44,6 @@ export default function Sidebar({
     };
   }, [showProfileMenu]);
 
-  if (isCollapsed) {
-    return (
-      <aside className="fixed left-0 top-0 h-full w-14 bg-[#0E131F] z-50 flex flex-col items-center justify-between py-4 border-r border-[#232D3F] select-none">
-        <div className="flex flex-col items-center gap-4">
-          <button
-            type="button"
-            onClick={() => setIsCollapsed(false)}
-            className="p-2 rounded-lg text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors"
-            title="Expand Sidebar"
-          >
-            <PanelLeft className="w-5 h-5" />
-          </button>
-          <button
-            type="button"
-            onClick={onOpenUploadModal}
-            className="p-2 rounded-lg bg-primary text-white hover:bg-primary-container transition-colors shadow-xs"
-            title="New Document"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-        </div>
-        <button
-          type="button"
-          onClick={logout}
-          className="p-2 rounded-lg text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
-          title="Log Out"
-        >
-          <LogOut className="w-4 h-4" />
-        </button>
-      </aside>
-    );
-  }
-
   const userName = user?.name && user.name.toLowerCase() !== user.email?.toLowerCase()
     ? user.name
     : (user?.email ? user.email.split('@')[0] : 'User');
@@ -83,25 +53,85 @@ export default function Sidebar({
     : (user?.email ? user.email.slice(0, 2) : 'US');
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-64 bg-[#0E131F] z-50 flex flex-col justify-between py-4 px-3 border-r border-[#232D3F] shadow-xl select-none transition-all">
-      <div className="flex flex-col gap-4">
-        {/* Brand Header */}
-        <div className="flex items-center justify-between px-2">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <span className="font-serif text-lg tracking-tight text-white font-semibold">
-              Nexus AI
-            </span>
+    <>
+      {/* Mobile Dark Backdrop Overlay */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 md:hidden transition-opacity"
+          onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+        ></div>
+      )}
+
+      {/* Desktop Collapsed Bar */}
+      {isCollapsed && !isMobileOpen && (
+        <aside className="fixed left-0 top-0 h-full w-14 bg-[#0E131F] z-50 hidden md:flex flex-col items-center justify-between py-4 border-r border-[#232D3F] select-none">
+          <div className="flex flex-col items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setIsCollapsed(false)}
+              className="p-2 rounded-lg text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors"
+              title="Expand Sidebar"
+            >
+              <PanelLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenUploadModal}
+              className="p-2 rounded-lg bg-primary text-white hover:bg-primary-container transition-colors shadow-xs"
+              title="New Document"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
           </div>
           <button
             type="button"
-            onClick={() => setIsCollapsed && setIsCollapsed(true)}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors"
-            title="Collapse Sidebar"
+            onClick={logout}
+            className="p-2 rounded-lg text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+            title="Log Out"
           >
-            <PanelLeftClose className="w-4 h-4" />
+            <LogOut className="w-4 h-4" />
           </button>
-        </div>
+        </aside>
+      )}
+
+      {/* Full Sidebar (Mobile Overlay & Desktop Sidebar) */}
+      <aside
+        className={`fixed left-0 top-0 h-full w-64 bg-[#0E131F] z-[60] flex flex-col justify-between py-4 px-3 border-r border-[#232D3F] shadow-xl select-none transition-all duration-300 ${
+          isMobileOpen
+            ? 'translate-x-0'
+            : isCollapsed
+            ? '-translate-x-full md:hidden'
+            : '-translate-x-full md:translate-x-0'
+        }`}
+      >
+        <div className="flex flex-col gap-4">
+          {/* Brand Header */}
+          <div className="flex items-center justify-between px-2">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-primary" />
+              <span className="font-serif text-lg tracking-tight text-white font-semibold">
+                Nexus AI
+              </span>
+            </div>
+            {/* Mobile Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors md:hidden"
+              title="Close Drawer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {/* Desktop Collapse Button */}
+            <button
+              type="button"
+              onClick={() => setIsCollapsed && setIsCollapsed(true)}
+              className="w-8 h-8 rounded-lg hidden md:flex items-center justify-center text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors"
+              title="Collapse Sidebar"
+            >
+              <PanelLeftClose className="w-4 h-4" />
+            </button>
+          </div>
 
         {/* New Document Button */}
         <div className="px-1">
@@ -240,5 +270,6 @@ export default function Sidebar({
         </button>
       </div>
     </aside>
-  );
+  </>
+);
 }

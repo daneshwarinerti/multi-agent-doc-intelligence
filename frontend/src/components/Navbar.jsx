@@ -4,6 +4,7 @@ import {
   FileText,
   Share2,
   Check,
+  Menu,
 } from 'lucide-react';
 
 export default function Navbar({
@@ -11,6 +12,7 @@ export default function Navbar({
   setActiveTab,
   currentDoc,
   isCollapsed = false,
+  onToggleMobileSidebar,
 }) {
   const { user } = useAuth();
   const [toastMessage, setToastMessage] = useState('');
@@ -40,18 +42,26 @@ export default function Navbar({
 
   return (
     <header
-      className={`fixed top-0 right-0 z-40 bg-[#0B0F17]/90 backdrop-blur-xl border-b border-[#232D3F] shadow-md select-none transition-all ${
-        isCollapsed ? 'left-14' : 'left-64'
+      className={`fixed top-0 right-0 z-40 bg-[#0B0F17]/90 backdrop-blur-xl border-b border-[#232D3F] shadow-md select-none transition-all left-0 ${
+        isCollapsed ? 'md:left-14' : 'md:left-64'
       }`}
     >
-      <div className="h-14 w-full px-6 flex items-center justify-between gap-4">
-        {/* Left Document Indicator */}
-        <div className="flex items-center gap-2.5 min-w-0 max-w-xs md:max-w-md">
-          <FileText className="w-4 h-4 text-primary flex-shrink-0" />
+      <div className="h-14 w-full px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4">
+        {/* Mobile Hamburger Button & Document Indicator */}
+        <div className="flex items-center gap-2 min-w-0 max-w-[40%] md:max-w-md">
+          <button
+            type="button"
+            onClick={onToggleMobileSidebar}
+            className="p-1.5 rounded-lg text-slate-400 hover:bg-[#151C28] hover:text-white transition-colors md:hidden shrink-0"
+            title="Toggle Navigation Menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <FileText className="w-4 h-4 text-primary flex-shrink-0 hidden sm:block" />
           <span className="text-xs text-slate-200 font-medium truncate" title={docName}>
             {docName}
           </span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#151C28] text-slate-300 font-mono font-medium border border-[#232D3F] shrink-0 flex items-center gap-1.5">
+          <span className="text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full bg-[#151C28] text-slate-300 font-mono font-medium border border-[#232D3F] shrink-0 hidden sm:flex items-center gap-1.5">
             <span>{pageCount} {pageCount === 1 ? 'pg' : 'pgs'}</span>
             <span>·</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -60,7 +70,7 @@ export default function Navbar({
         </div>
 
         {/* Center Nav Switcher Tabs */}
-        <nav className="flex items-center gap-1 bg-[#0E131F] p-1 rounded-xl border border-[#232D3F] text-xs">
+        <nav className="flex items-center gap-1 bg-[#0E131F] p-1 rounded-xl border border-[#232D3F] text-xs max-w-[50%] sm:max-w-none overflow-x-auto scrollbar-none">
           {navItems.map((item) => {
             const isActive = activeTab === item.id || (activeTab === 'chat' && item.id === 'qa');
             return (
@@ -68,7 +78,7 @@ export default function Navbar({
                 key={item.id}
                 type="button"
                 onClick={() => setActiveTab(item.id)}
-                className={`px-3.5 py-1.5 rounded-lg transition-all font-medium whitespace-nowrap ${
+                className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg transition-all font-medium whitespace-nowrap text-[11px] sm:text-xs ${
                   isActive
                     ? 'bg-[#151C28] text-white font-semibold shadow-xs border border-[#232D3F]'
                     : 'text-slate-400 hover:text-white hover:bg-[#151C28]/50'
@@ -81,7 +91,7 @@ export default function Navbar({
         </nav>
 
         {/* Right Action Icons */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <button
             type="button"
             onClick={handleShare}
